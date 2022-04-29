@@ -1,0 +1,11 @@
+{
+  "name": "planning_poker",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
