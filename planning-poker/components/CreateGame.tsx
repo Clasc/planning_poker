@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { api } from "../lib/api";
 
 const CreateGame = () => {
     const [name, setName] = useState("");
-
+    const router = useRouter();
     const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         setName(target.value);
     };
@@ -16,7 +18,8 @@ const CreateGame = () => {
             console.error(res);
             return;
         }
-        alert("created a game! your gameid: " + res.gameId);
+
+        router.push(`/game?id=${res.gameId}`);
     };
 
     return (
