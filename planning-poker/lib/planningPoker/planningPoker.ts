@@ -1,5 +1,3 @@
-import { Guid, guidGenerator } from "../idGenerator/idGenderator";
-import { makeSessionStorage } from "./sessionStorage";
 import { Choices, PlanningPoker } from "./types";
 
 
