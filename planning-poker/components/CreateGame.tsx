@@ -5,10 +5,9 @@ import { api } from "../lib/api";
 
 const CreateGame = () => {
     const [name, setName] = useState("");
+
     const router = useRouter();
-    const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        setName(target.value);
-    };
+    const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => setName(target.value);
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();

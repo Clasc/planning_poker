@@ -11,22 +11,22 @@ const Game = () => {
 
     const { id: gameId } = router.query;
     useEffect(() => {
-        api.get<GameState>("/api/game/" + gameId).then(res => {
-            setGame(res);
+        api.get<{ game: GameState, gameId: string }>("/api/game/" + gameId).then(res => {
+            console.log({ res });
+            setGame(res?.game);
         });
-    });
-    console.log(gameId);
+    }, [gameId]);
 
-    const players = (state: GameState) => state?.users?.map(user => <li>user</li>) ?? [];
+    const players = () => game?.users?.map(user => <li>user</li>) ?? [];
 
     return (
         <div>
-            <h1>Game: {gameId}</h1>
+            <h1>Game: {game?.name ?? ""}</h1>
             <p>Your game code: {gameId}</p>
             <div>
                 Players:
                 <ul>
-                    {players(game)}
+                    {players()}
                 </ul>
             </div>
         </div>
