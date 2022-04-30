@@ -1,8 +1,9 @@
 import { NextApiHandler } from "next";
 import { Session } from "../../../lib/GameState/GameState";
 import { generateGuid } from "../../../lib/idGenerator/idGenderator";
+import { IGameResponse } from "../../../lib/Types/api";
 
-const handler: NextApiHandler = (req, res) => {
+const handler: NextApiHandler<IGameResponse> = (req, res) => {
     if (req.method !== "POST") {
         res.status(405).json({ error: "Method not allowed" });
         return;

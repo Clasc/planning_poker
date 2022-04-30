@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PlayerAdd } from "../../components/PlayerAdd";
 import { api } from "../../lib/api";
 import { GameState } from "../../lib/GameState/GameState";
+import { IGameResponse } from "../../lib/Types/api";
 
 
 const Game = () => {
@@ -12,7 +13,7 @@ const Game = () => {
     const { id: gameId } = router.query as { id: string };
 
     const fetchGame = async (gameId: string) => {
-        const res = await api.get<{ game: GameState, gameId: string }>("/api/game/" + gameId);
+        const res = await api.get<IGameResponse>("/api/game/" + gameId);
         console.log({ res });
         setGame(res?.game);
     }

@@ -1,7 +1,8 @@
 import { NextApiHandler } from "next/dist/shared/lib/utils";
 import { Session } from "../../../lib/GameState/GameState";
+import { IGameResponse } from "../../../lib/Types/api";
 
-const handler: NextApiHandler = (req, res) => {
+const handler: NextApiHandler<IGameResponse> = (req, res) => {
     if (req.method !== "GET") {
         res.status(405).json({ error: "Method not allowed" });
         return;
