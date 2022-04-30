@@ -2,13 +2,17 @@ export type GameState = {
     name: string;
     players: string[];
     votes: Record<string, number>;
+    isRevealed: boolean;
+    revealed: number;
 }
 
 export const MakeGameState = (name: string = "", users: string[] = []): GameState => {
     return {
         name: name,
         players: users,
-        votes: {}
+        votes: {},
+        isRevealed: false,
+        revealed: 0
     }
 };
 

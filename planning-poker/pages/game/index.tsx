@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import GameOverview from "../../components/GameOverview";
+import GameRevelation from "../../components/GameRevelation";
 import PlayerList from "../../components/PlayerList";
 import { api } from "../../lib/api";
 import { useChangeHandler } from "../../lib/client/useChangeHandler";
@@ -32,7 +33,7 @@ const Game = () => {
     return (
         <div>
             <GameOverview game={game} user={player} />
-            <PlayerList players={game.players} />
+            <PlayerList players={game.players} votes={game.isRevealed ? game.votes : undefined} />
             <div>
                 <h3>
                     Your Vote:
@@ -42,6 +43,7 @@ const Game = () => {
                     <button type="submit" name="submit" >Submit your vote</button>
                 </form>
             </div>
+            <GameRevelation game={game} />
         </div>
     )
 }
