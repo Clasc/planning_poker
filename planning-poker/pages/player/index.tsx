@@ -8,7 +8,7 @@ const Player = () => {
     const router = useRouter();
     const { gameId } = router.query as { gameId: string };
 
-    const { fetchGame, game } = useGame(gameId);
+    const { game } = useGame(gameId);
     const joinGame = (player: string) => router.push(`/game?id=${gameId}&player=${player}`);
 
     return (

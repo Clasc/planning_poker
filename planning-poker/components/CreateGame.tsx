@@ -2,13 +2,14 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { api } from "../lib/api";
+import { useChangeHandler } from "../lib/client/useChangeHandler";
 import { IGameResponse } from "../lib/Types/api";
 
 const CreateGame = () => {
     const [name, setName] = useState("");
 
     const router = useRouter();
-    const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => setName(target.value);
+    const changeName = useChangeHandler(setName);
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();

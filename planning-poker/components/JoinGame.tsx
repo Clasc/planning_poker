@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { api } from "../lib/api";
+import { useChangeHandler } from "../lib/client/useChangeHandler";
 import { IPlayerResponse } from "../lib/Types/api";
 
 export function JoinGame(props: { gameId: string, added: (player: string) => void }) {
     const [name, setName] = useState("");
 
-    const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => setName(target.value);
+    const changeName = useChangeHandler(setName);
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();
