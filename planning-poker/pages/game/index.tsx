@@ -10,14 +10,22 @@ const Game = () => {
     const [game, setGame] = useState({} as GameState);
 
     const { id: gameId } = router.query as { id: string };
+
+    const fetchGame = async (gameId: string) => {
+        const res = await api.get<{ game: GameState, gameId: string }>("/api/game/" + gameId);
+        console.log({ res });
+        setGame(res?.game);
+    }
+
     useEffect(() => {
-        api.get<{ game: GameState, gameId: string }>("/api/game/" + gameId).then(res => {
-            console.log({ res });
-            setGame(res?.game);
-        });
+        if (gameId) {
+            fetchGame(gameId);
+        }
     }, [gameId]);
 
-    const players = () => game?.users?.map(user => <li>user</li>) ?? [];
+
+
+    const players = () => game?.users?.map(user => <li>{user}</li>) ?? [];
 
     return (
         <div>
