@@ -17,7 +17,7 @@ export const api = {
         return res.ok ? res.json() : null;
     },
 
-    async get<TResponse>(endpoint: string) {
+    async get<TResponse>(endpoint: string): Promise<TResponse | null> {
         const res = await makeFetch("GET")(endpoint);
         return res.ok ? res.json() : null;
     },

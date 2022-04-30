@@ -14,8 +14,10 @@ const Game = () => {
 
     const fetchGame = async (gameId: string) => {
         const res = await api.get<IGameResponse>("/api/game/" + gameId);
-        console.log({ res });
-        setGame(res?.game);
+        if (res) {
+            console.log({ res });
+            setGame(res?.game);
+        }
     }
 
     useEffect(() => {

@@ -2,6 +2,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { api } from "../lib/api";
+import { IGameResponse } from "../lib/Types/api";
 
 const CreateGame = () => {
     const [name, setName] = useState("");
@@ -11,13 +12,11 @@ const CreateGame = () => {
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const res = await api.post<{ gameId: string }>("/api/game", { name });
+        const res = await api.post<IGameResponse>("/api/game", { name });
         if (!res) {
             alert("something went wrong :(");
-            console.error(res);
             return;
         }
-
         router.push(`/game?id=${res.gameId}`);
     };
 

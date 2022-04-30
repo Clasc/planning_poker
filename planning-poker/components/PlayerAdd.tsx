@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "../lib/api";
+import { IPlayerResponse } from "../lib/Types/api";
 
 export function PlayerAdd(props: { gameId: string }) {
     const [name, setName] = useState("");
@@ -8,7 +9,7 @@ export function PlayerAdd(props: { gameId: string }) {
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const res = await api.post<{ gameId: string }>("/api/player", { gameId: props.gameId, name });
+        const res = await api.post<IPlayerResponse>("/api/player", { gameId: props.gameId, name });
         if (!res) {
             alert("something went wrong :(");
             console.error(res);
