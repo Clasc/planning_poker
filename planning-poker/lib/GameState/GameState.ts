@@ -6,7 +6,7 @@ export type GameState = {
     revealed: number;
 }
 
-export const MakeGameState = (name: string = "", users: string[] = []): GameState => {
+export const makeGameState = (name: string = "", users: string[] = []): GameState => {
     return {
         name: name,
         players: users,

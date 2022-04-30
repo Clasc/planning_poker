@@ -1,13 +1,8 @@
-import { NextApiHandler } from "next/dist/shared/lib/utils";
 import { Session } from "../../../lib/GameState/GameState";
+import { makeHandler } from "../../../lib/server/makeHandler";
 import { IGameResponse } from "../../../lib/Types/api";
 
-const handler: NextApiHandler<IGameResponse> = (req, res) => {
-    if (req.method !== "GET") {
-        res.status(405).json({ error: "Method not allowed" });
-        return;
-    }
-
+const handler = makeHandler<IGameResponse>("GET", (req, res) => {
     if (!req.query.id) {
         res.status(400).json({ error: "Missing gameId" });
         return;
@@ -25,6 +20,7 @@ const handler: NextApiHandler<IGameResponse> = (req, res) => {
         gameId: gameId,
         game: game
     });
-};
+});
+
 
 export default handler;

@@ -1,14 +1,10 @@
 import { NextApiHandler } from "next";
 import { Session } from "../../lib/GameState/GameState";
+import { makeHandler } from "../../lib/server/makeHandler";
 import { IPlayerResponse } from "../../lib/Types/api";
 
 
-const handler: NextApiHandler<IPlayerResponse> = (req, res) => {
-    if (req.method !== "POST") {
-        res.status(405).json({ error: "Method not allowed" });
-        return;
-    }
-
+const handler = makeHandler<IPlayerResponse>("POST", (req, res) => {
     if (!req.body.name || !req.body.gameId) {
         res.status(400).json({
             error: "Missing name or gameId"
@@ -33,6 +29,6 @@ const handler: NextApiHandler<IPlayerResponse> = (req, res) => {
         message: "Hello player" + req.body.name + " welcome to game " + req.body.gameId,
         players: gameState.players
     });
-};
+});
 
 export default handler;

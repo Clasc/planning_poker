@@ -1,13 +1,9 @@
 import { NextApiHandler } from "next";
 import { Session } from "../../../lib/GameState/GameState";
+import { makeHandler } from "../../../lib/server/makeHandler";
 import { IRevealResponse } from "../../../lib/Types/api";
 
-const handler: NextApiHandler<IRevealResponse> = (req, res) => {
-    if (req.method !== "POST") {
-        res.status(405).json({ error: "Method not allowed" });
-        return;
-    }
-
+const handler = makeHandler<IRevealResponse>("POST", (req, res) => {
     const { gameId } = req.body as { gameId: string, player: string, vote: number };
     if (!gameId) {
         res.status(400).json({
@@ -38,6 +34,6 @@ const handler: NextApiHandler<IRevealResponse> = (req, res) => {
     res.status(200).json({
         revealed: game.revealed
     });
-};
+});
 
 export default handler;
