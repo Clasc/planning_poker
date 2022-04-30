@@ -15,12 +15,11 @@ export function useGame(gameId: string) {
         }
     }
 
-
     useEffect(() => { updateGameState(gameId) }, [gameId]);
 
-    const setupGamePolling = () => useInterval(() => updateGameState(gameId), 1000);
+    useInterval(() => updateGameState(gameId), 1000);
 
-    return { getGame, game, setGame, setupGamePolling };
+    return { getGame, game, updateGameState };
 }
 
 export const getGame = async (gameId: string) => {
