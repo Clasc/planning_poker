@@ -1,43 +1,24 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { PlayerAdd } from "../../components/PlayerAdd";
-import { api } from "../../lib/api";
-import { GameState } from "../../lib/GameState/GameState";
-import { IGameResponse } from "../../lib/Types/api";
+import PlayerList from "../../components/PlayerList";
+import { useGame } from "../../lib/useGame/useGame";
 
 
 const Player = () => {
     const router = useRouter();
     const { gameId } = router.query as { gameId: string };
 
-    const [game, setGame] = useState({} as GameState);
+    const { fetchGame, game } = useGame(gameId);
+    const startGame = () => router.push(`/game?id=${gameId}`);
 
-    const fetchGame = async (gameId: string) => {
-        const res = await api.get<IGameResponse>("/api/game/" + gameId);
-        if (res) {
-            console.log({ res });
-            setGame(res?.game);
-        }
-    }
-
-    useEffect(() => {
-        if (gameId) {
-            fetchGame(gameId);
-        }
-    }, [gameId]);
-
-    const players = () => game?.users?.map(user => <li key={user}>{user}</li>) ?? [];
     return (
         <div>
             <h1>Game: {game?.name ?? ""}</h1>
             <PlayerAdd gameId={gameId ?? ""} added={() => fetchGame(gameId)}></PlayerAdd>
             <p>Your game code: {gameId}</p>
-            <div>
-                Players:
-                <ul>
-                    {players()}
-                </ul>
-            </div>
+            <PlayerList players={game?.users ?? []}></PlayerList>
+
+            <button onClick={startGame}>Start Game</button>
         </div>
     )
 }

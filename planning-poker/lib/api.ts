@@ -1,3 +1,4 @@
+import { IGameResponse } from "./Types/api";
 
 const makeFetch = (method: string) => {
     return (endpoint: string, body?: unknown) => {
