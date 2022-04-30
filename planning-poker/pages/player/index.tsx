@@ -6,11 +6,11 @@ import { GameState } from "../../lib/GameState/GameState";
 import { IGameResponse } from "../../lib/Types/api";
 
 
-const Game = () => {
+const Player = () => {
     const router = useRouter();
-    const [game, setGame] = useState({} as GameState);
+    const { gameId } = router.query as { gameId: string };
 
-    const { id: gameId } = router.query as { id: string };
+    const [game, setGame] = useState({} as GameState);
 
     const fetchGame = async (gameId: string) => {
         const res = await api.get<IGameResponse>("/api/game/" + gameId);
@@ -26,14 +26,11 @@ const Game = () => {
         }
     }, [gameId]);
 
-
-
     const players = () => game?.users?.map(user => <li key={user}>{user}</li>) ?? [];
-
     return (
         <div>
             <h1>Game: {game?.name ?? ""}</h1>
-            <PlayerAdd gameId={gameId ?? ""}></PlayerAdd>
+            <PlayerAdd gameId={gameId ?? ""} added={() => fetchGame(gameId)}></PlayerAdd>
             <p>Your game code: {gameId}</p>
             <div>
                 Players:
@@ -47,4 +44,4 @@ const Game = () => {
 
 
 
-export default Game;
+export default Player;

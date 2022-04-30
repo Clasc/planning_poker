@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../lib/api";
 import { IPlayerResponse } from "../lib/Types/api";
 
-export function PlayerAdd(props: { gameId: string }) {
+export function PlayerAdd(props: { gameId: string, added: (player: string) => void }) {
     const [name, setName] = useState("");
 
     const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => setName(target.value);
@@ -15,6 +15,7 @@ export function PlayerAdd(props: { gameId: string }) {
             console.error(res);
             return;
         }
+        props.added(name);
     };
 
     return (
