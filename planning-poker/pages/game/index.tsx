@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-import PlayerList from "../../components/PlayerList";
-import { useGame } from "../../lib/useGame/useGame";
+import GameOverview from "../../components/GameOverview";
+import { useGame } from "../../lib/client/useGame";
 
 const Game = () => {
     const router = useRouter();
@@ -17,9 +17,7 @@ const Game = () => {
 
     return (
         <div>
-            <h1>Game: {game.name}</h1>
-            <h2>Your Name: {player}</h2>
-            <PlayerList players={game.users}></PlayerList>
+            <GameOverview game={game} user={player} />
             <div>
                 <h3>
                     Your Vote:

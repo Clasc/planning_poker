@@ -15,6 +15,10 @@ const TestPage = () => {
                 <h1>Planning Poker</h1>
                 <div className='poker-container'>
                     <div>
+                        <h2>Create a Game:</h2>
+                        <CreateGame></CreateGame>
+
+                        <h2>Join a Game:</h2>
                         <CreateGame></CreateGame>
                     </div>
                 </div>

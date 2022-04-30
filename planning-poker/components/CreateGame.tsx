@@ -17,7 +17,7 @@ const CreateGame = () => {
             alert("something went wrong :(");
             return;
         }
-        router.push(`/player?gameId=${res.gameId}`);
+        router.push(`/admin?gameId=${res.gameId}`);
     };
 
     return (

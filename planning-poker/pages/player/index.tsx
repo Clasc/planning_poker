@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { JoinGame } from "../../components/JoinGame";
 
-import { useGame } from "../../lib/useGame/useGame";
+import { useGame } from "../../lib/client/useGame";
 
 
 const Player = () => {
@@ -15,7 +15,7 @@ const Player = () => {
         <div>
             <h1>Game: {game?.name ?? ""}</h1>
             <p>Your game code: {gameId}</p>
-            <JoinGame gameId={gameId ?? ""} added={joinGame}></JoinGame>
+            <JoinGame gameId={gameId ?? ""} added={joinGame} />
         </div>
     )
 }
