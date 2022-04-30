@@ -1,11 +1,11 @@
 import { NextApiHandler } from "next/dist/shared/lib/utils";
 import { Session } from "../../../lib/GameState/GameState";
-import { makeHandler } from "../../../lib/server/makeHandler";
+import { makeHandler, makePost } from "../../../lib/server/makeHandler";
 import { IVoteResponse } from "../../../lib/Types/api";
 
 const voteIsValid = (vote: number | null | undefined): boolean => vote !== null && vote !== undefined && vote >= 0;
 
-const handler = makeHandler<IVoteResponse>("POST", (req, res) => {
+const handler = makePost<IVoteResponse>()((req, res) => {
     const { gameId, player, vote } = req.body as { gameId: string, player: string, vote: number };
     if (!gameId || !player || !voteIsValid(vote)) {
         res.status(400).json({

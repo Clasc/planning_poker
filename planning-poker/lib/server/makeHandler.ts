@@ -3,12 +3,17 @@ import { IErrorResponse } from "../Types/api";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | "TRACE";
 
-export function makeHandler<TResponse extends IErrorResponse = IErrorResponse>(method: Method, handler: NextApiHandler<TResponse>): NextApiHandler<TResponse> {
-    return (req, res) => {
-        if (req.method !== method) {
-            res.status(405).json({ error: "Method not allowed" } as any);
-            return;
+export function makeHandler<TResponse>(method: Method): (handler: NextApiHandler) => NextApiHandler<TResponse> {
+    return (handler: NextApiHandler<TResponse>) => {
+        return (req, res) => {
+            if (req.method !== method) {
+                res.status(405).json({ error: "Method not allowed" } as any);
+                return;
+            }
+            handler(req, res);
         }
-        handler(req, res);
-    }
+    };
 }
+
+export const makePost = <TResponse extends IErrorResponse = IErrorResponse>() => makeHandler<TResponse>("POST");
+export const makeGet = <TResponse extends IErrorResponse = IErrorResponse>() => makeHandler<TResponse>("GET");

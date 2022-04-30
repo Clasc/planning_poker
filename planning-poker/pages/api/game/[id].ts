@@ -1,8 +1,8 @@
 import { Session } from "../../../lib/GameState/GameState";
-import { makeHandler } from "../../../lib/server/makeHandler";
+import { makeGet, makeHandler } from "../../../lib/server/makeHandler";
 import { IGameResponse } from "../../../lib/Types/api";
 
-const handler = makeHandler<IGameResponse>("GET", (req, res) => {
+const handler = makeGet<IGameResponse>()((req, res) => {
     if (!req.query.id) {
         res.status(400).json({ error: "Missing gameId" });
         return;

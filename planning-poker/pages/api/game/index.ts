@@ -1,10 +1,9 @@
-import { NextApiHandler } from "next";
 import { makeGameState, Session } from "../../../lib/GameState/GameState";
 import { generateGuid } from "../../../lib/idGenerator/idGenderator";
-import { makeHandler } from "../../../lib/server/makeHandler";
+import { makePost } from "../../../lib/server/makeHandler";
 import { IGameResponse } from "../../../lib/Types/api";
 
-const handler = makeHandler<IGameResponse>("POST", (req, res) => {
+const handler = makePost<IGameResponse>()((req, res) => {
     const gameId = generateGuid();
     const game = makeGameState(req.body.name as string);
 

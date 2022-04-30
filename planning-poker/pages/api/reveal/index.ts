@@ -1,9 +1,9 @@
 import { NextApiHandler } from "next";
 import { Session } from "../../../lib/GameState/GameState";
-import { makeHandler } from "../../../lib/server/makeHandler";
+import { makeHandler, makePost } from "../../../lib/server/makeHandler";
 import { IRevealResponse } from "../../../lib/Types/api";
 
-const handler = makeHandler<IRevealResponse>("POST", (req, res) => {
+const handler = makePost<IRevealResponse>()((req, res) => {
     const { gameId } = req.body as { gameId: string, player: string, vote: number };
     if (!gameId) {
         res.status(400).json({

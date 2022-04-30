@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next";
 import { Session } from "../../lib/GameState/GameState";
-import { makeHandler } from "../../lib/server/makeHandler";
+import { makeHandler, makePost } from "../../lib/server/makeHandler";
 import { IPlayerResponse } from "../../lib/Types/api";
 
 
-const handler = makeHandler<IPlayerResponse>("POST", (req, res) => {
+const handler = makePost<IPlayerResponse>()((req, res) => {
     if (!req.body.name || !req.body.gameId) {
         res.status(400).json({
             error: "Missing name or gameId"
