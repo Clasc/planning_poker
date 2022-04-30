@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { Session } from "../../../lib/GameState/GameState";
+import { MakeGameState, Session } from "../../../lib/GameState/GameState";
 import { generateGuid } from "../../../lib/idGenerator/idGenderator";
 import { IGameResponse } from "../../../lib/Types/api";
 
@@ -10,11 +10,7 @@ const handler: NextApiHandler<IGameResponse> = (req, res) => {
     }
 
     const gameId = generateGuid();
-    const game = {
-        users: [],
-        name: req.body.name,
-    };
-
+    const game = MakeGameState(req.body.name as string);
     Session.set(gameId, game);
 
     res.status(200).json({

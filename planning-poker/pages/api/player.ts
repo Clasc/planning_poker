@@ -27,11 +27,11 @@ const handler: NextApiHandler<IPlayerResponse> = (req, res) => {
         return;
     }
 
-    gameState.users.push(req.body.name);
+    gameState.players.push(req.body.name);
 
     res.status(200).json({
         message: "Hello player" + req.body.name + " welcome to game " + req.body.gameId,
-        users: gameState.users
+        players: gameState.players
     });
 };
 
