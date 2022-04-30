@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import CreateGame from '../components/CreateGame';
+import JoinGame from '../components/JoinGame';
 import styles from '../styles/Home.module.css';
 
 
@@ -16,10 +17,10 @@ const TestPage = () => {
                 <div className='poker-container'>
                     <div>
                         <h2>Create a Game:</h2>
-                        <CreateGame></CreateGame>
+                        <CreateGame />
 
                         <h2>Join a Game:</h2>
-                        <CreateGame></CreateGame>
+                        <JoinGame />
                     </div>
                 </div>
             </main>
