@@ -23,9 +23,9 @@ const Game = () => {
             vote,
         });
         if (!response?.error) {
-            alert("You voted!" + response?.voted ?? "");
+            alert("You voted! " + response?.voted ?? "");
         } else {
-            alert("An error ocured!" + response?.error ?? "");
+            alert("An error ocured! " + response?.error ?? "");
         }
     };
 
