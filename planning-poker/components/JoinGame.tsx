@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../lib/api";
 import { IPlayerResponse } from "../lib/Types/api";
 
-export function PlayerAdd(props: { gameId: string, added: (player: string) => void }) {
+export function JoinGame(props: { gameId: string, added: (player: string) => void }) {
     const [name, setName] = useState("");
 
     const changeName = ({ target }: React.ChangeEvent<HTMLInputElement>) => setName(target.value);
@@ -20,14 +20,15 @@ export function PlayerAdd(props: { gameId: string, added: (player: string) => vo
 
     return (
         <div>
-            <h1>Create a Player</h1>
+            <h2>Create a Player</h2>
             <form onSubmit={submit}>
                 <label>
                     <p>Player Name:</p>
                     <input type='text' name='player' onInput={changeName} />
                 </label>
-                <h3>Your player: {name}</h3>
-                <button type='submit'>Create</button>
+                <div>
+                    <button type='submit'>Join game as </button><p>{name}</p>
+                </div>
             </form>
         </div>
     )

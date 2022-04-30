@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { PlayerAdd } from "../../components/PlayerAdd";
-import PlayerList from "../../components/PlayerList";
+import { JoinGame } from "../../components/JoinGame";
+
 import { useGame } from "../../lib/useGame/useGame";
 
 
@@ -9,16 +9,13 @@ const Player = () => {
     const { gameId } = router.query as { gameId: string };
 
     const { fetchGame, game } = useGame(gameId);
-    const startGame = () => router.push(`/game?id=${gameId}`);
+    const joinGame = (player: string) => router.push(`/game?id=${gameId}&player=${player}`);
 
     return (
         <div>
             <h1>Game: {game?.name ?? ""}</h1>
-            <PlayerAdd gameId={gameId ?? ""} added={() => fetchGame(gameId)}></PlayerAdd>
             <p>Your game code: {gameId}</p>
-            <PlayerList players={game?.users ?? []}></PlayerList>
-
-            <button onClick={startGame}>Start Game</button>
+            <JoinGame gameId={gameId ?? ""} added={joinGame}></JoinGame>
         </div>
     )
 }
