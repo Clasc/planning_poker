@@ -15,19 +15,22 @@ const handler: NextApiHandler = (req, res) => {
         return;
     }
 
-    const session = Session.get(req.body.gameId);
-    if (!session) {
+    const gameState = Session.get(req.body.gameId);
+    // console.log({ Session });
+    // console.log({ gameState });
+
+    if (!gameState) {
         res.status(400).json({
             error: "Invalid gameId"
         });
         return;
     }
 
-    session.users.push(req.body.name);
+    gameState.users.push(req.body.name);
 
     res.status(200).json({
         message: "Hello player" + req.body.name + " welcome to game " + req.body.gameId,
-        users: session.users
+        users: gameState.users
     });
 };
 

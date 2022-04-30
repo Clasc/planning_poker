@@ -17,7 +17,6 @@ const handler: NextApiHandler = (req, res) => {
     Session.set(gameId, game);
 
     res.status(200).json({
-        message: "Hello World",
         gameId: gameId,
         game: Session.get(gameId)
     });

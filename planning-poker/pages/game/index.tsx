@@ -25,7 +25,7 @@ const Game = () => {
 
 
 
-    const players = () => game?.users?.map(user => <li>{user}</li>) ?? [];
+    const players = () => game?.users?.map(user => <li key={user}>{user}</li>) ?? [];
 
     return (
         <div>
