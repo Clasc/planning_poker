@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
 import GameOverview from "../../components/GameOverview";
 import GameRevelation from "../../components/GameRevelation";
 import PlayerList from "../../components/PlayerList";
 import { api } from "../../lib/api";
 import { useGame } from "../../lib/client/useGame";
-import { IErrorResponse, IRevealResponse } from "../../lib/Types/api";
+import { IRevealResponse } from "../../lib/Types/api";
 
 const Admin = () => {
     const router = useRouter();

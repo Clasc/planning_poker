@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { RegisterPlayer } from "../../components/RegisterPlayer";
-
 import { useGame } from "../../lib/client/useGame";
+
 
 
 const Player = () => {
