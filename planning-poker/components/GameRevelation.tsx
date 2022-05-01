@@ -1,4 +1,4 @@
-import { GameState } from "../lib/GameState/GameState"
+import { GameState } from "../lib/Types/GameState";
 
 const GameRevelation = (props: { game: GameState }) => {
     return (

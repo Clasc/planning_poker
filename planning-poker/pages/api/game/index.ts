@@ -1,5 +1,5 @@
-import { makeGameState, Session } from "../../../lib/GameState/GameState";
-import { generateGuid } from "../../../lib/idGenerator/idGenderator";
+import { makeGameState, Session } from "../../../lib/server/GameState/GameState";
+import { generateGuid } from "../../../lib/server/idGenerator/idGenderator";
 import { makePost } from "../../../lib/server/makeHandler";
 import { IGameResponse } from "../../../lib/Types/api";
 

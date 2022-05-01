@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { Session } from "../../../lib/GameState/GameState";
+import { Session } from "../../../lib/server/GameState/GameState";
 import { makeHandler, makePost } from "../../../lib/server/makeHandler";
 import { IRevealResponse } from "../../../lib/Types/api";
 

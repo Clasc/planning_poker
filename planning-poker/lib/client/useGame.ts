@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
-import { GameState } from "../GameState/GameState";
 import { IGameResponse } from "../Types/api";
+import { GameState } from "../Types/GameState";
 import { useInterval } from "./useInterval";
 
 export function useGame(gameId: string) {
