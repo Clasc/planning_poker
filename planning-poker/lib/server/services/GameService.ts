@@ -17,5 +17,15 @@ export function makeGameService(repo: IGameStateRepository): IGameService {
         return game;
     }
 
-    return { storeGame, loadGame };
+    const addPlayer = async (id: string, player: string) => {
+        const gameState = await repo.get(id);
+
+        if (!gameState) {
+            throw new NotFoundError("No Game found");
+        }
+        gameState.players.push(player);
+        return gameState.players;
+    }
+
+    return { storeGame, loadGame, addPlayer };
 }

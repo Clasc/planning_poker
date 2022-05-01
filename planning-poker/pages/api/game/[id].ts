@@ -1,5 +1,4 @@
-import { Session } from "../../../lib/server/GameState/GameState";
-import { makeGet, makeHandler } from "../../../lib/server/makeHandler";
+import { makeGet } from "../../../lib/server/makeHandler";
 import { makeGameStateRepository } from "../../../lib/server/repositories/GameStateRepository";
 import { makeGameService } from "../../../lib/server/services/GameService";
 import { IGameResponse } from "../../../lib/Types/api";
