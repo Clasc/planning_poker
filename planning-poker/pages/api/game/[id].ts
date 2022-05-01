@@ -1,25 +1,20 @@
 import { Session } from "../../../lib/server/GameState/GameState";
 import { makeGet, makeHandler } from "../../../lib/server/makeHandler";
+import { makeGameStateRepository } from "../../../lib/server/repositories/GameStateRepository";
+import { makeGameService } from "../../../lib/server/services/GameService";
 import { IGameResponse } from "../../../lib/Types/api";
 
-const handler = makeGet<IGameResponse>()((req, res) => {
-    if (!req.query.id) {
+const service = makeGameService(makeGameStateRepository());
+
+const handler = makeGet<IGameResponse>()(async (req, res) => {
+    const gameId = req.query.id as string;
+    if (!gameId) {
         res.status(400).json({ error: "Missing gameId" });
         return;
     }
 
-    const gameId = req.query.id as string;
-    const game = Session.get(gameId);
-
-    if (!game) {
-        res.status(404).json({ error: "No Game found" });
-        return;
-    }
-
-    res.status(200).json({
-        gameId: gameId,
-        game: game
-    });
+    const game = await service.loadGame(gameId);
+    res.status(200).json({ gameId, game });
 });
 
 

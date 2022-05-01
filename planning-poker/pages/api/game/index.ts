@@ -1,16 +1,21 @@
 import { makeGameState, Session } from "../../../lib/server/GameState/GameState";
 import { generateGuid } from "../../../lib/server/idGenerator/idGenderator";
 import { makePost } from "../../../lib/server/makeHandler";
+import { makeGameStateRepository } from "../../../lib/server/repositories/GameStateRepository";
+import { makeGameService } from "../../../lib/server/services/GameService";
 import { IGameResponse } from "../../../lib/Types/api";
 
-const handler = makePost<IGameResponse>()((req, res) => {
+const service = makeGameService(makeGameStateRepository());
+
+const handler = makePost<IGameResponse>()(async (req, res) => {
     const gameId = generateGuid();
     const game = makeGameState(req.body.name as string);
 
-    Session.set(gameId, game);
+    const result = await service.storeGame(gameId, game);
+
     res.status(200).json({
         gameId: gameId,
-        game: Session.get(gameId)
+        game: result,
     });
 });
 
