@@ -1,9 +1,11 @@
-import { NextApiHandler } from "next";
-import { Session } from "../../../lib/server/GameState/GameState";
-import { makeHandler, makePost } from "../../../lib/server/makeHandler";
+import { makePost } from "../../../lib/server/makeHandler";
+import { makeGameStateRepository } from "../../../lib/server/repositories/GameStateRepository";
+import { makeGameRevelationService } from "../../../lib/server/services/GameRevelationService";
 import { IRevealResponse } from "../../../lib/Types/api";
 
-const handler = makePost<IRevealResponse>()((req, res) => {
+const service = makeGameRevelationService(makeGameStateRepository());
+
+const handler = makePost<IRevealResponse>()(async (req, res) => {
     const { gameId } = req.body as { gameId: string, player: string, vote: number };
     if (!gameId) {
         res.status(400).json({
@@ -11,28 +13,8 @@ const handler = makePost<IRevealResponse>()((req, res) => {
         });
         return;
     }
-
-    const game = Session.get(gameId);
-    if (!game) {
-        res.status(404).json({ error: "No Game found" });
-        return;
-    }
-
-
-    const allVotes = Object.values(game.votes);
-    if (allVotes.length !== game.players.length) {
-        res.status(400).json({
-            error: "Not all players have voted"
-        });
-        return;
-    }
-
-    game.revealed = allVotes.reduce((accVal, vote) => accVal + vote, 0) / allVotes.length;
-    game.isRevealed = true;
-    Session.set(gameId, game);
-    res.status(200).json({
-        revealed: game.revealed
-    });
+    const revealed = await service.revealGame(gameId);
+    res.status(200).json({ revealed });
 });
 
 export default handler;
