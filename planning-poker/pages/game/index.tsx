@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import GameOverview from "../../components/GameOverview";
 import GameRevelation from "../../components/GameRevelation";
 import PlayerList from "../../components/PlayerList";
@@ -13,8 +13,10 @@ const Game = () => {
     const { id: gameId, player } = router.query as { id: string, player: string };
     const { game } = useGame(gameId);
 
-    const [vote, setVote] = useState("");
-    const changeVote = useChangeHandler(setVote);
+    const [vote, setVote] = useState(null as unknown as number);
+
+
+
     const submit = async (evt: FormEvent) => {
         evt.preventDefault();
         console.log("sending vote...");
@@ -39,7 +41,7 @@ const Game = () => {
                     Your Vote:
                 </h3>
                 <form onSubmit={submit}>
-                    <input type="number" name="vote" onChange={changeVote} />
+                    <input type="number" name="vote" onChange={({ target }) => (setVote(parseInt(target.value)))} />
                     <button type="submit" name="submit" >Submit your vote</button>
                 </form>
             </div>

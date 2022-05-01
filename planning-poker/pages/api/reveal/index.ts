@@ -20,7 +20,6 @@ const handler = makePost<IRevealResponse>()((req, res) => {
 
 
     const allVotes = Object.values(game.votes);
-
     if (allVotes.length !== game.players.length) {
         res.status(400).json({
             error: "Not all players have voted"
@@ -28,7 +27,7 @@ const handler = makePost<IRevealResponse>()((req, res) => {
         return;
     }
 
-    game.revealed = allVotes.reduce((acc, vote) => acc + vote, 0) / allVotes.length;
+    game.revealed = allVotes.reduce((accVal, vote) => accVal + vote, 0) / allVotes.length;
     game.isRevealed = true;
     Session.set(gameId, game);
     res.status(200).json({
