@@ -15,6 +15,8 @@ const Admin = () => {
         const response = await api.post<IRevealResponse>("/api/reveal", { gameId });
         if (!response?.error) {
             alert("Revealed! " + response?.revealed ?? "");
+        } else {
+            alert("An error ocured! " + response?.error ?? "");
         }
     }
 

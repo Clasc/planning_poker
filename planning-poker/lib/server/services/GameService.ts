@@ -5,10 +5,8 @@ import { IGameService } from "./Interfaces/IGameService";
 
 export function makeGameService(repo: IGameStateRepository): IGameService {
     const addGame = async (id: string, game: GameState) => {
-        console.log({ id, game });
         await repo.set(id, game);
         const result = await repo.get(id);
-        console.log({ result });
         return result;
     }
 

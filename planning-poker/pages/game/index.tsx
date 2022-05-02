@@ -19,7 +19,6 @@ const Game = () => {
 
     const submit = async (evt: FormEvent) => {
         evt.preventDefault();
-        console.log("sending vote...");
         const response = await api.post<IVoteResponse>("/api/vote", {
             gameId,
             player,
