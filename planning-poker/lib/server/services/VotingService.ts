@@ -13,5 +13,6 @@ export function makeVotingService(repo: IGameStateRepository): IVotingService {
         await repo.set(gameId, game);
         return game.votes[player];
     };
+
     return { submitVote };
 };

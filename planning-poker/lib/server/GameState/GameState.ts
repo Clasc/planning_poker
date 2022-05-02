@@ -9,5 +9,3 @@ export const makeGameState = (name: string = "", users: string[] = []): GameStat
         revealed: 0
     }
 };
-
-export const Session = new Map<string, GameState>();

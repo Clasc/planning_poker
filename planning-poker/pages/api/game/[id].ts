@@ -1,9 +1,7 @@
 import { makeGet } from "../../../lib/server/makeHandler";
-import { makeGameStateRepository } from "../../../lib/server/repositories/GameStateRepository";
-import { makeGameService } from "../../../lib/server/services/GameService";
-import { IGameResponse } from "../../../lib/Types/api";
+import { gameService } from "../../../lib/server/setup";
 
-const service = makeGameService(makeGameStateRepository());
+import { IGameResponse } from "../../../lib/Types/api";
 
 const handler = makeGet<IGameResponse>()(async (req, res) => {
     const gameId = req.query.id as string;
@@ -12,7 +10,8 @@ const handler = makeGet<IGameResponse>()(async (req, res) => {
         return;
     }
 
-    const game = await service.loadGame(gameId);
+    const game = await gameService.loadGame(gameId);
+
     res.status(200).json({ gameId, game });
 });
 

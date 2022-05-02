@@ -4,16 +4,20 @@ import { NotFoundError } from "./Errors/ServerErrors";
 import { IGameService } from "./Interfaces/IGameService";
 
 export function makeGameService(repo: IGameStateRepository): IGameService {
-    const storeGame = async (id: string, game: GameState) => {
+    const addGame = async (id: string, game: GameState) => {
+        console.log({ id, game });
         await repo.set(id, game);
         const result = await repo.get(id);
+        console.log({ result });
         return result;
     }
+
     const loadGame = async (id: string) => {
         const game = await repo.get(id);
         if (!game) {
             throw new NotFoundError("No Game found");
         }
+
         return game;
     }
 
@@ -23,9 +27,17 @@ export function makeGameService(repo: IGameStateRepository): IGameService {
         if (!gameState) {
             throw new NotFoundError("No Game found");
         }
+
+        if (gameState.players.some(p => p === player)) {
+            return gameState.players;
+        }
+
         gameState.players.push(player);
+        repo.set(id, gameState);
         return gameState.players;
     }
 
-    return { storeGame, loadGame, addPlayer };
+
+
+    return { addGame, loadGame, addPlayer };
 }

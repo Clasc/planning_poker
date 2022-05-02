@@ -1,7 +1,7 @@
 import { GameState } from "../../../Types/GameState";
 
 export interface IGameService {
-    storeGame: (id: string, game: GameState) => Promise<GameState | undefined>;
-    loadGame: (id: string) => Promise<GameState | undefined>;
+    addGame: (id: string, game: GameState) => Promise<GameState | undefined>;
+    loadGame: (id: string) => Promise<GameState>;
     addPlayer: (id: string, player: string) => Promise<string[]>;
 }

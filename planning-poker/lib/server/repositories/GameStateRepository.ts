@@ -1,19 +1,20 @@
-import { GameState } from "../../Types/GameState"
-import { Session } from "../GameState/GameState"
+import { GameState } from "../../Types/GameState";
+import { storage } from "../storage/storage";
 import { IRepository } from "./IRepository";
 
-export type IGameStateRepository = IRepository<GameState>;
-export function makeGameStateRepository(): IRepository<GameState> {
-    const set = async (id: string, val: GameState) => {
-        Session.set(id, val);
+export interface IGameStateRepository extends IRepository<GameState> {
+    getVotes: (id: string) => Promise<(string | number)[]>
+};
+
+export function makeGameStateRepository(): IGameStateRepository {
+    const set = storage.set;
+    const get = async (id: string) => { return await storage.get(id) };
+    const exists = storage.exists;
+
+    const getVotes = async (id: string) => {
+        const game = await get(id);
+        return !game ? [] : Object.values(game.votes);
     }
 
-    const get = async (id: string) => {
-        return Session.get(id);
-    };
-
-    const exists = async (id: string) => {
-        return Session.has(id);
-    };
-    return { set, get, exists };
+    return { set, get, exists, getVotes };
 }

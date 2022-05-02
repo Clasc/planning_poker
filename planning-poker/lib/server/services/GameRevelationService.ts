@@ -9,13 +9,13 @@ export function makeGameRevelationService(repo: IGameStateRepository): IGameReve
             throw new NotFoundError("No Game found");
         }
 
-        const allVotes = Object.values(game.votes);
+        const allVotes = await repo.getVotes(gameId);
 
         if (allVotes.length !== game.players.length) {
             throw new BadRequestError("Not all players have voted");
         }
 
-        game.revealed = allVotes.reduce((accVal, vote) => accVal + vote, 0) / allVotes.length;
+        game.revealed = allVotes.reduce((accVal: number, vote) => accVal + (vote as number), 0) / allVotes.length;
         game.isRevealed = true;
         await repo.set(gameId, game);
         return game.revealed;
