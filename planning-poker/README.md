@@ -1,34 +1,41 @@
+# What this is about
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+It's a small planning poker app, where users can create games and join a game.
+The cretaor of the game is the administrator who can reveal the votes and its average.
+Other players can join via the games code.
+
+**This is only a POC**
+If I find the time, I will improve styling, security and many other aspects. This is not an application that should be used in production.
 
 ## Getting Started
 
-First, run the development server:
+Make sure you have node version 16.x installed.
 
+After cloning the project run
+```bash
+npm install
+```
+
+Then, you can run the development server via:
 ```bash
 npm run dev
-# or
-yarn dev
 ```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Remarks
+The data storage currently only is in Memory in a JS Map.
+Due to this, all progress is lost when the app rebuilds/restarts.
+It is not recommended to start the app with npm run dev, because recompilation is triggered automatically very often, even if code does not change.
+This leads to the Map being emptied and the app cannot be used normally.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+So for now, use
+```bash
+npm run build
+npm run start
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+to run a production build. This stores your data for longer.
+This is a POC, so there are no strict plans on adding a persistent storage solution, which would fix this problem. 
+For now, this is sufficient enough.
